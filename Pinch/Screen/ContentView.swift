@@ -15,36 +15,38 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ZStack {
+                Color.clear
                 Image("magazine-front-cover")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .cornerRadius(10)
-                .shadow(color: .black.opacity(0.2), radius: 12, x: 2, y: 2)
-                .opacity(isAnimating ? 1 : 0)
-                .offset(x: imageOffset.width, y: imageOffset.height)
-                .scaleEffect(imageScale)
-                .onTapGesture(count: 2) {
-                    if imageScale == 1 {
-                        withAnimation(.spring()) {
-                            imageScale = 5
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .cornerRadius(10)
+                    .padding()
+                    .shadow(color: .black.opacity(0.2), radius: 12, x: 2, y: 2)
+                    .opacity(isAnimating ? 1 : 0)
+                    .offset(x: imageOffset.width, y: imageOffset.height)
+                    .scaleEffect(imageScale)
+                    .onTapGesture(count: 2) {
+                        if imageScale == 1 {
+                            withAnimation(.spring()) {
+                                imageScale = 5
+                            }
+                        } else {
+                            resetImageState()
                         }
-                    } else {
-                        resetImageState()
                     }
-                }
-                .gesture(
-                    DragGesture()
-                        .onChanged { value in
-                            withAnimation(.linear(duration: 1)) {
-                                imageOffset = value.translation
+                    .gesture(
+                        DragGesture()
+                            .onChanged { value in
+                                withAnimation(.linear(duration: 1)) {
+                                    imageOffset = value.translation
+                                }
                             }
-                        }
-                        .onEnded { _ in
-                            if imageScale <= 1 {
-                                resetImageState()
+                            .onEnded { _ in
+                                if imageScale <= 1 {
+                                    resetImageState()
+                                }
                             }
-                        }
-                )
+                    )
             }
             .navigationBarTitle("Pinch & Zoom")
             .navigationBarTitleDisplayMode(.inline)
@@ -53,9 +55,14 @@ struct ContentView: View {
                     isAnimating = true
                 }
             })
+            .overlay(
+                InfoPanelView(scale: imageScale, offset: imageOffset)
+                    .padding(.horizontal)
+                    .padding(.top, 30)
+                , alignment: .top
+            )
         }
         .navigationViewStyle(.stack)
-        .padding()
     }
 
     func resetImageState() {
@@ -69,5 +76,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .preferredColorScheme(.dark)
     }
 }
