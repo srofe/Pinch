@@ -29,9 +29,7 @@ struct ContentView: View {
                             imageScale = 5
                         }
                     } else {
-                        withAnimation(.spring()) {
-                            imageScale = 1
-                        }
+                        resetImageState()
                     }
                 }
                 .gesture(
@@ -43,10 +41,7 @@ struct ContentView: View {
                         }
                         .onEnded { _ in
                             if imageScale <= 1 {
-                                withAnimation(.spring()) {
-                                    imageScale = 1
-                                    imageOffset = .zero
-                                }
+                                resetImageState()
                             }
                         }
                 )
@@ -61,6 +56,13 @@ struct ContentView: View {
         }
         .navigationViewStyle(.stack)
         .padding()
+    }
+
+    func resetImageState() {
+        return withAnimation(.spring()) {
+            imageScale = 1
+            imageOffset = .zero
+        }
     }
 }
 
