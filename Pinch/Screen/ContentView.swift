@@ -61,6 +61,13 @@ struct ContentView: View {
                     .padding(.top, 30)
                 , alignment: .top
             )
+            .overlay(
+                Group {
+                    Text("Controls")
+                }
+                    .padding()
+                , alignment: .bottom
+            )
         }
         .navigationViewStyle(.stack)
     }
