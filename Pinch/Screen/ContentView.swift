@@ -67,6 +67,12 @@ struct ContentView: View {
                         Button {} label: {
                             ControlImageView(icon:  "minus.magnifyingglass")
                         }
+                        Button {} label: {
+                            ControlImageView(icon:  "arrow.up.left.and.down.right.magnifyingglass")
+                        }
+                        Button {} label: {
+                            ControlImageView(icon:  "plus.magnifyingglass")
+                        }
                     }
                 }
                     .padding()
