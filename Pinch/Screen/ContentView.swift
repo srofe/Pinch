@@ -63,7 +63,11 @@ struct ContentView: View {
             )
             .overlay(
                 Group {
-                    Text("Controls")
+                    HStack {
+                        Button {} label: {
+                            ControlImageView(icon:  "minus.magnifyingglass")
+                        }
+                    }
                 }
                     .padding()
                 , alignment: .bottom
