@@ -76,10 +76,21 @@ struct ContentView: View {
                         } label: {
                             ControlImageView(icon:  "minus.magnifyingglass")
                         }
-                        Button {} label: {
+                        Button {
+                            resetImageState()
+                        } label: {
                             ControlImageView(icon:  "arrow.up.left.and.down.right.magnifyingglass")
                         }
-                        Button {} label: {
+                        Button {
+                            withAnimation(.spring()) {
+                                if imageScale < 5 {
+                                    imageScale += 1
+                                    if imageScale > 5 {
+                                        imageScale = 5
+                                    }
+                                }
+                            }
+                        } label: {
                             ControlImageView(icon:  "plus.magnifyingglass")
                         }
                     }
