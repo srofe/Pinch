@@ -64,7 +64,16 @@ struct ContentView: View {
             .overlay(
                 Group {
                     HStack {
-                        Button {} label: {
+                        Button {
+                            withAnimation(.spring()) {
+                                if imageScale > 1 {
+                                    imageScale -= 1
+                                    if imageScale <= 1 {
+                                        resetImageState()
+                                    }
+                                }
+                            }
+                        } label: {
                             ControlImageView(icon:  "minus.magnifyingglass")
                         }
                         Button {} label: {
